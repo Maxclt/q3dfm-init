@@ -3,6 +3,7 @@ from typing import Tuple, List
 
 from q3dfm.get_HJ import get_HJ
 from q3dfm.runKF import runKF
+from q3dfm.helper_mat import helper_mat
 
 
 def EMstep(
@@ -14,6 +15,7 @@ def EMstep(
     p: int,
     frq: np.ndarray,
     is_diff: List[bool],
+    blocks: np.ndarray,
 ) -> Tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray, float]:
     """EMstep reestimates parameters based on the Estimation Maximization (EM)
         algorithm. This is a two-step procedure:
@@ -165,9 +167,6 @@ def EMstep(
             V_obs = np.sum(
                 Vsmooth[:m, :m, np.concatenate([[False], y_idx])], axis=2
             )  # Vsmooth where y observed
-            V_obs = (
-                scl[lblock, :][:, lblock] @ V_obs @ scl[lblock, :][:, lblock]
-            )  # for zero restrictions
         else:
             J = helper_mat(fq, is_diff[j], m, sA)
             Z_obs = np.dot(J, Zsmooth[:sA, 1:])
@@ -179,10 +178,9 @@ def EMstep(
                 )
                 @ J.T
             )
-            V_obs = (
-                scl[lblock, :][:, lblock] @ V_obs @ scl[lblock, :][:, lblock]
-            )  # for zero restrictions
-
+        V_obs = (
+            scl[lblock, :][:, lblock] @ V_obs @ scl[lblock, :][:, lblock]
+        )  # for zero restrictions
         EZZ = np.dot(Z_obs, Z_obs.T) + V_obs
         EZZ = (EZZ + EZZ.T) / 2  # get rid of rounding error
         h = (

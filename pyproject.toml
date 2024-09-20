@@ -12,6 +12,8 @@ numpy = "^2.0.1"
 
 [tool.poetry.group.dev.dependencies]
 black = "^24.8.0"
+pytest = "^8.3.3"
+ipykernel = "^6.29.5"
 
 [tool.black]
 line-length = 79
