@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "q3dfm"
+version = "0.1.0"
+description = "This code is adapted from the open source code from Macroeconomic Nowcasting and Forecasting with Big Data by Brandyn Bok, Daniele Caratelli, Domenico Giannone, Argia M. Sbordone, and Andrea Tambalotti, Staff Reports 830, Federal Reserve Bank of New York (prepared for Volume 10 of the Annual Review of Economics) and from the adaptation made by Seth Leonard."
+authors = ["mcoulet <m.coulet@quant-cube.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+numpy = "^2.0.1"
+
+
+[tool.poetry.group.dev.dependencies]
+black = "^24.8.0"
+
+[tool.black]
+line-length = 79
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
