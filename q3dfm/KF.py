@@ -7,7 +7,7 @@ from q3dfm.long_run_var import long_run_var
 def KF(
     Y: np.ndarray, A: np.ndarray, HJ: np.ndarray, Q: np.ndarray, R: np.ndarray
 ) -> Dict[str, Union[np.ndarray, float]]:
-    """Applies fast Kalman filter (see Dornbush Koopman (2012))
+    """Applies fast Kalman filter (see Durbin Koopman (2012))
 
     Args:
         Y (np.ndarray): k-by-nobs matrix of input data
