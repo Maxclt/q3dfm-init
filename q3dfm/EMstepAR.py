@@ -13,7 +13,7 @@ def EMstepAR(
     Q: np.ndarray,
     R: np.ndarray,
     p: int,
-    frq: List[int],
+    frq: np.ndarray,
     isdiff: List[bool],
     blocks: np.ndarray,
 ) -> Tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray, float]:
@@ -26,7 +26,7 @@ def EMstepAR(
         Q (np.ndarray): Covariance matrix for transition equation residuals.
         R (np.ndarray): Covariance matrix for observation matrix residuals.
         p (int): Number of lags in the transition equation.
-        frq (List[int]): List of frequencies for each series.
+        frq (np.ndarray): List of frequencies for each series.
         isdiff (List[bool]): List indicating if the series is differenced.
         blocks (np.ndarray): Block structure for each series (i.e., loadings
             on factors).
