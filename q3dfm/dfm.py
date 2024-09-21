@@ -10,6 +10,7 @@ from q3dfm.EMstep import EMstep
 from q3dfm.EMstepAR import EMstepAR
 from q3dfm.runKF import runKF
 from q3dfm.get_HJ import get_HJ
+from q3dfm.set_frequencies import set_frequencies
 
 
 def dfm(
