@@ -11,6 +11,8 @@ from q3dfm.EMstepAR import EMstepAR
 from q3dfm.runKF import runKF
 from q3dfm.get_HJ import get_HJ
 from q3dfm.set_frequencies import set_frequencies
+from q3dfm.InitAR import init_ar
+from q3dfm.InitCond import init_cond
 
 
 def dfm(
@@ -100,7 +102,7 @@ def dfm(
     xNaN = (X - Mx) / Wx  # Standardize
 
     frq = set_frequencies(frq)  # Set frequencies
-    A_new, H_new, Q_new, R_new = InitCond(xNaN, m, p, frq, isdiff, blocks)
+    A_new, H_new, Q_new, R_new = init_cond(xNaN, m, p, frq, isdiff, blocks)
 
     # EM Loop
     previous_loglik = -np.inf
@@ -141,7 +143,7 @@ def dfm(
     # Handle AR errors if necessary
     if ar_errors:
         print("Estimating model with AR errors...")
-        A_new, H_new, Q_new, R_new = InitAR(Y, A, H, Q, R, frq, isdiff)
+        A_new, H_new, Q_new, R_new = init_ar(Y, A, H, Q, R, frq, isdiff)
         previous_loglik, num_iter, converged = -np.inf, 0, False
 
         while num_iter < max_iter and not converged:

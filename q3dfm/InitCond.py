@@ -5,7 +5,7 @@ from typing import List, Tuple
 from scipy.sparse.linalg import eigs
 
 
-def InitCond(
+def init_cond(
     X: np.ndarray,
     m: int,
     p: int,
@@ -38,7 +38,7 @@ def InitCond(
     T, k = X.shape
     xBal = np.zeros((T, k))
 
-    # Fill in missing values via cubic spline
+    # Fill in missing values following N(0,1)
     xBal[np.isnan(X)] = np.random.randn(np.isnan(xBal).sum())
 
     H = np.zeros((k, m))  # Initialize loadings
