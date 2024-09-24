@@ -58,4 +58,4 @@ pip-delete-this-directory.txt
 .idea/
 
 # Other files
-.csv
+*.csv

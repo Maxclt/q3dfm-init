@@ -51,11 +51,11 @@ def KF(
     }
 
     # Initial values following Hamilton (1994)
-    Z = np.zeros((sA, 1))  # Z_0|0
+    Z = np.zeros(sA)  # Z_0|0
     V = long_run_var(A, Q)  # V_0|0
 
     # Store initial values
-    S["ZmU"][:, 0] = Z[:, 0]  # store pre-sample factors
+    S["ZmU"][:, 0] = Z  # store pre-sample factors
     S["VmU"][:, :, 0] = V  # store pre-sample variance
 
     # KALMAN FILTER PROCEDURE -------------------------------------------------
@@ -98,7 +98,7 @@ def KF(
                 # contributions
 
         # Store posterior values
-        S["ZmU"][:, t + 1] = Z[:, 0]  # Store updated factors
+        S["ZmU"][:, t + 1] = Z  # Store updated factors
         S["VmU"][:, :, t + 1] = V  # Store updated variance
 
     # Store Kalman gain for the last period (smoothing)

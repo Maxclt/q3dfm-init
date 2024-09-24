@@ -32,6 +32,7 @@ def Ksmooth(
     m, nobs = S["Zm"].shape
     S["ZmT"] = np.zeros((m, nobs + 1))
     S["VmT"] = np.zeros((m, m, nobs + 1))
+    S["VmT_1"] = np.zeros((m, m, nobs + 1))
 
     # fill the final period of ZmT, VmT with SKF() posterior values
     S["ZmT"][:, nobs] = np.squeeze(S["ZmU"][:, nobs])

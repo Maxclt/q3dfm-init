@@ -16,8 +16,8 @@ def set_frequencies(str_frq: List[str]) -> np.ndarray:
 
     freq_map = {"d": 1, "w": 7, "b": 14, "m": 28, "q": 84, "y": 336}
     frq = np.array([freq_map.get(freq, 28) for freq in str_frq])
-    min_frq = min(frq)
-    frq /= min_frq  # Scale by the minimum frequency
+    min_frq = int(min(frq))
+    frq = frq / min_frq  # Scale by the minimum frequency
 
     # Finalizing replacements
     replace_map = {

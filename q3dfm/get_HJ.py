@@ -18,9 +18,9 @@ def get_HJ(
     k, m = H.shape
     lags = np.copy(frq)
     lags[is_diff] = 2 * frq[is_diff] - 1
-    pp = max(max(lags), p)
-    HJ = np.zeros(k, m * pp)
-    HJ[:, 1:m] = H
+    pp = int(max(max(lags), p))
+    HJ = np.zeros((k, m * pp))
+    HJ[:, :m] = H
     idx = [i for i, x in enumerate(frq) if x > 1]
     for j in idx:
         if is_diff(j):

@@ -36,10 +36,10 @@ def init_cond(
                 R:   Covariance for observation equation residuals
     """
     T, k = X.shape
-    xBal = np.zeros((T, k))
+    xBal = X.copy()
 
     # Fill in missing values following N(0,1)
-    xBal[np.isnan(X)] = np.random.randn(np.isnan(xBal).sum())
+    xBal[np.isnan(xBal)] = np.random.randn(np.isnan(xBal).sum())
 
     H = np.zeros((k, m))  # Initialize loadings
     xTemp = xBal.copy()
@@ -52,8 +52,10 @@ def init_cond(
         _, G = eigs(
             np.cov(xTemp[:, lblock], rowvar=False), k=1, which="LM"
         )  # Initial guess for loadings
-        H[lblock, j] = G  # G is the eigenvector which will be our loading
-        z[:, j] = xTemp[:, lblock] @ G  # z is our factor
+        H[lblock, j] = (
+            G.flatten()
+        )  # G is the eigenvector which will be our loading
+        z[:, j] = (xTemp[:, lblock] @ G).flatten()  # z is our factor
         xTemp -= (
             z[:, j][:, np.newaxis] @ H[:, j][np.newaxis, :]
         )  # Remove explained variance
@@ -72,7 +74,7 @@ def init_cond(
     # -- This tells us how many lags we need in the case of mixed frequencies --
     lags = frq.copy()
     lags[isdiff] = np.array([2 * x - 1 for x in frq[isdiff]])
-    pp = max(lags.max(), p)
+    pp = int(max(lags.max(), p))
     # ------------------------------------
     sA = m * pp  # Size of A matrix
     Q = np.zeros(

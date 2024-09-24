@@ -64,7 +64,7 @@ def EMstep(
     k, T = Y.shape
     _, m = H.shape
     sA = A.shape[0]
-    pp = sA / m
+    pp = int(sA / m)
 
     # ESTIMATION STEP: Compute the (expected) sufficient statistics for a
     # single Kalman filter sequence
@@ -183,8 +183,8 @@ def EMstep(
         )  # for zero restrictions
         EZZ = np.dot(Z_obs, Z_obs.T) + V_obs
         EZZ = (EZZ + EZZ.T) / 2  # get rid of rounding error
-        h = (
-            np.dot(y_obs, Z_obs.T) / EZZ
+        h = (y_obs @ Z_obs.T) @ np.linalg.inv(
+            EZZ
         )  # almost OLS, just adjusting for the fact that factors are
         # estimated not observed
         H_new[j, lblock] = h  # plug estimated values of h in
